@@ -1,0 +1,7 @@
+{
+    "webhook_url": "<discord_webhook_url>",
+    "city": "<city> <postal_code>", 
+    "reason" : "<CNI|PASSPORT|CNI-PASSPORT>",
+    "document_number" : "<1-5>",
+    "radius_km" : "<20|40|60>"
+}
