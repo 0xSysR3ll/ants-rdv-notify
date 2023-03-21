@@ -1,6 +1,6 @@
 services:
   ants-rdv-notify:
-    image: 0xsysr3ll/ants-rdv-notify:latest
+    image: registry.0xsysr3ll.fr/ants-rdv-notify:latest
     container_name: ants-rdv-notify
     build:
       context: app
