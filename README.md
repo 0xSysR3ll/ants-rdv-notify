@@ -2,10 +2,10 @@
 <div align="center">
 
 <!--  <img src="assets/logo.png" alt="logo" width="200" height="auto" />-->
-  <h1>A CNI and Passport rendez-vous notifier</h1>
+  <h1>A French NIC and Passport rendez-vous notifier</h1>
   
   <p>
-    A python tool to get notified for CNI and Passport rendez-vous from the <a href="https://rendezvouspasseport.ants.gouv.fr">ANTS service</a> !
+    A python tool to get notified for French NIC and Passport rendez-vous from the <a href="https://rendezvouspasseport.ants.gouv.fr">ANTS service</a> !
   </p>
   
   
