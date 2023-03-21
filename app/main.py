@@ -14,6 +14,7 @@ import requests_random_user_agent
 
 API_URL = "https://api.rendezvouspasseport.ants.gouv.fr/api/SlotsFromPosition"
 
+
 class DiscordWebhook():
     """
     Creates a new DiscordWebhook object with the specified webhook URL.
@@ -24,7 +25,7 @@ class DiscordWebhook():
 
     def __init__(self, webhook_url) -> None:
         self.webhook_url = webhook_url
-    
+
     async def send_notification(self, embed):
         """
         Sends a notification to the Discord webhook with the specified embed.
@@ -35,27 +36,33 @@ class DiscordWebhook():
         """
 
         # Creating a webhook object
-        webhook = discord.Webhook.from_url(self.webhook_url, session=aiohttp.ClientSession())
+        webhook = discord.Webhook.from_url(
+            self.webhook_url, session=aiohttp.ClientSession())
         # Create the payload
         await webhook.send(embed=embed)
 
-def search_rendez_vous(radius_km: int, longitude: float, latitude: float, city: str, reason: str, document_number: int):
-    """
-    A function that searches for available rendez-vous slots for French national identity cards (CNI) and passports using the API provided by the French government.
 
-    :param radius_km: The radius in kilometers to search for available rendez-vous slots.
+def search_rendez_vous(radius_km: int, longitude: float, latitude: float,
+                       city: str, reason: str, document_number: int):
+    """
+    A function that searches for available rendez-vous slots
+    for French national identity cards (CNI) and passports using
+    the API provided by the French government.
+
+    :param radius_km: The radius in kilometers around the city.
     :type radius_km: int
-    :param longitude: The longitude of the location to search for available rendez-vous slots.
+    :param longitude: The longitude of the city.
     :type longitude: float
-    :param latitude: The latitude of the location to search for available rendez-vous slots.
+    :param latitude: The latitude of city.
     :type latitude: float
     :param city: The city to search for available rendez-vous slots.
     :type city: str
-    :param reason: The reason for the rendez-vous (CNI, PASSPORT, CNI-PASSPORT)
+    :param reason: The reason of the rendez-vous (CNI, PASSPORT, CNI-PASSPORT)
     :type reason: str
     :param document_number: The number of documents to be asked (1, 2, 3, 4, 5)
     :type document_number: int
-    :return: A tuple containing a boolean indicating whether or not a rendez-vous slot was found and a list of available rendez-vous slots.
+    :return: A tuple containing a boolean indicating whether or not
+    a rendez-vous slot was found and a list of available rendez-vous slots.
     :rtype: tuple
     """
 
@@ -78,6 +85,7 @@ def search_rendez_vous(radius_km: int, longitude: float, latitude: float, city: 
     else:
         return False, None
 
+
 def main():
     # Parse config file
     config = json.load(open('config.json'))
@@ -87,42 +95,59 @@ def main():
     radius_km = config['radius_km']
     webhook_url = config['webhook_url']
 
-    notifier = DiscordWebhook(webhook_url) # Create a notifier object
-    
+    notifier = DiscordWebhook(webhook_url)  # Create a notifier object
+
     # Get location from city name
     geolocator = Nominatim(user_agent="cni_passport_rdv_finder")
     location = geolocator.geocode(city)
-    
+
     while True:
-        found, places = search_rendez_vous(radius_km=radius_km, longitude=location.longitude, latitude=location.latitude, city=city, reason=reason, document_number=document_number)
+        found, places = search_rendez_vous(radius_km=radius_km,
+                                           longitude=location.longitude,
+                                           latitude=location.latitude,
+                                           city=city,
+                                           reason=reason,
+                                           document_number=document_number
+                                           )
         if found:
             print("Rendez-vous trouvé(s) ! Envoi de la notification...")
             for place in places:
                 rdv_len = len(place['available_slots'])
                 try:
                     rdv_place_url = place['website']
-                except:
+                except Exception as e:
+                    print(e)
                     rdv_place_url = "https://rendezvouspasseport.ants.gouv.fr"
                 try:
                     rdv_place_icon = place['city_logo']
-                except:
+                except Exception as e:
+                    print(e)
                     rdv_place_icon = "https://guichetcartegrise.com/img/ants.jpg"
                 embed = discord.Embed(
-            title=f":date: {rdv_len} rendez-vous trouvé(s) à la {place['name']}.",
-            description=f":round_pushpin: Distance : {place['distance_km']} kms",
-            color=discord.Color.red()
-        )
-                embed.set_author(name=f"{place['name']}", url=rdv_place_url, icon_url=rdv_place_icon)
+                    title=f":date: {rdv_len} rendez-vous trouvé(s) à la {place['name']}.",
+                    description=f":round_pushpin: Distance : {place['distance_km']} kms",
+                    color=discord.Color.red())
+                embed.set_author(
+                    name=f"{place['name']}",
+                    url=rdv_place_url,
+                    icon_url=rdv_place_icon
+                )
                 for rdv in place['available_slots']:
-                    rdv_date = datetime.strptime(rdv['datetime'], '%Y-%m-%dT%H:%M:%S+00:00')
+                    rdv_date = datetime.strptime(
+                        rdv['datetime'], '%Y-%m-%dT%H:%M:%S+00:00')
                     rdv_day = rdv_date.strftime('%d/%m/%Y')
                     rdv_time = rdv_date.strftime('%H:%M')
                     rdv_link = rdv['callback_url']
-                    embed.add_field(name=f"Créneau disponible le {rdv_day} à {rdv_time}", value=rdv_link, inline=False)
+                    embed.add_field(
+                        name=f"Créneau disponible le {rdv_day} à {rdv_time}",
+                        value=rdv_link,
+                        inline=False
+                    )
             asyncio.run(notifier.send_notification(embed))
         else:
             print("Pas de rendez-vous trouvé. Recherche dans 5 minutes...")
         time.sleep(300)
+
 
 if __name__ == '__main__':
     main()
