@@ -115,11 +115,13 @@ def main():
                 rdv_len = len(place['available_slots'])
                 try:
                     rdv_place_url = place['website']
+                    req.get(rdv_place_url)
                 except Exception as e:
                     print(e)
                     rdv_place_url = "https://rendezvouspasseport.ants.gouv.fr"
                 try:
                     rdv_place_icon = place['city_logo']
+                    req.get(rdv_place_icon)
                 except Exception as e:
                     print(e)
                     rdv_place_icon = "https://guichetcartegrise.com/img/ants.jpg"
