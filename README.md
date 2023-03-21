@@ -110,8 +110,8 @@ To run this script, you will need :
 The `config.json` file contains the following settings:
 
 - `city`: The name of the city where you want to search for rendez-vous slots.
-- `reason`: The type of document you want. Options are : CNI, PASSPORT or CNI-PASSPORT (for both)
-- `document_number`: The number of CNI or passport you need a rendez-vous for.
+- `reason`: The type of document you want. Options are : CNI, PASSPORT or CNI-PASSPORT (for both).
+- `documents_number`: The number of people wishing for a rendez-vous.
 - `radius_km`: The radius in kilometers around the city where you want to search for rendez-vous slots.
 - `webhook_url`: The URL of the Discord webhook to which notifications will be sent.
 

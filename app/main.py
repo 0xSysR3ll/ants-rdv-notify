@@ -43,7 +43,7 @@ class DiscordWebhook():
 
 
 def search_rendez_vous(radius_km: int, longitude: float, latitude: float,
-                       city: str, reason: str, document_number: int):
+                       city: str, reason: str, documents_number: int):
     """
     A function that searches for available rendez-vous slots
     for French national identity cards (CNI) and passports using
@@ -57,10 +57,10 @@ def search_rendez_vous(radius_km: int, longitude: float, latitude: float,
     :type latitude: float
     :param city: The city to search for available rendez-vous slots.
     :type city: str
-    :param reason: The reason of the rendez-vous (CNI, PASSPORT, CNI-PASSPORT)
+    :param reason: The reason of the rendez-vous (CNI, PASSPORT, CNI-PASSPORT).
     :type reason: str
-    :param document_number: The number of documents to be asked (1, 2, 3, 4, 5)
-    :type document_number: int
+    :param documents_number: The number of people wishing for a rendez-vous (1-5).
+    :type documents_number: int
     :return: A tuple containing a boolean indicating whether or not
     a rendez-vous slot was found and a list of available rendez-vous slots.
     :rtype: tuple
@@ -76,7 +76,7 @@ def search_rendez_vous(radius_km: int, longitude: float, latitude: float,
         "radius_km": radius_km,
         "address": city,
         "reason": reason,
-        "documents_number": document_number
+        "documents_number": documents_number
     }
     s = req.Session()
     search_results = s.get(url=API_URL, params=req_params).json()
@@ -91,7 +91,7 @@ def main():
     config = json.load(open('config.json'))
     city = config['city']
     reason = config['reason']
-    document_number = config['document_number']
+    documents_number = config['documents_number']
     radius_km = config['radius_km']
     webhook_url = config['webhook_url']
 
@@ -107,7 +107,7 @@ def main():
                                            latitude=location.latitude,
                                            city=city,
                                            reason=reason,
-                                           document_number=document_number
+                                           document_number=documents_number
                                            )
         if found:
             print("Rendez-vous trouvé(s) ! Envoi de la notification...")
