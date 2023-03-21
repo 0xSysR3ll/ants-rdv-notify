@@ -107,7 +107,7 @@ def main():
                                            latitude=location.latitude,
                                            city=city,
                                            reason=reason,
-                                           document_numbers=documents_number
+                                           documents_number=documents_number
                                            )
         if found:
             print("Rendez-vous trouvé(s) ! Envoi de la notification...")
