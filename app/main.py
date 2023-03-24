@@ -110,9 +110,9 @@ def main():
                                            documents_number=documents_number
                                            )
         if found:
-            print("Rendez-vous trouvé(s) ! Envoi de la notification...")
             for place in places:
                 rdv_len = len(place['available_slots'])
+                print(f"[+] {rdv_len} rendez-vous trouvé(s) à la {place['name']} ! Envoi de la notification...")
                 try:
                     rdv_place_url = place['website']
                     req.get(rdv_place_url)
@@ -147,7 +147,7 @@ def main():
                     )
             asyncio.run(notifier.send_notification(embed))
         else:
-            print("Pas de rendez-vous trouvé. Recherche dans 5 minutes...")
+            print("[x] Pas de rendez-vous trouvé. Lancement de la recherche dans 5 minutes...")
         time.sleep(300)
 
 
