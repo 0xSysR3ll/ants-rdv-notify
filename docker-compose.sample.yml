@@ -1,0 +1,16 @@
+services:
+  ants-rdv-notify:
+    image: 0xsysr3ll/ants-rdv-notify:latest
+    container_name: ants-rdv-notify
+    build:
+      context: app
+      dockerfile: Dockerfile
+    configs:
+      - source: ants-rdv-notify-config
+        target: /app/config.yml
+    restart: always
+
+configs:
+  ants-rdv-notify-config:
+    file: ./config/config.yml
+    

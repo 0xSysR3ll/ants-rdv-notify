@@ -82,7 +82,9 @@ To run this script, you will need :
 
 3. Copy the `config.yml` to the app folder and edit the values to match your preferences.
 
-4. Run the script:
+4. Copy `docker-compose.sample.yml` to `docker-compose.yml` and adapt it to your needs.
+
+5. Run the script:
     ```bash
     python3 main.py
     ```
