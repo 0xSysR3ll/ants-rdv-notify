@@ -98,7 +98,7 @@ To run this script, you will need :
 
 3. Pull the official image on Docker Hub
     ```bash
-    docker pull registry.0xsysr3ll.fr/ants-rdv-notify:latest
+    docker pull 0xsysr3ll/ants-rdv-notify:latest
     ```
 
 4. Copy `docker-compose.sample.yml` to `docker-compose.yml` and adapt it to your needs.
