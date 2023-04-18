@@ -118,7 +118,7 @@ def main():
             for place in places:
                 rdv_len = len(place['available_slots'])
                 print(
-                    f"{success()} {rdv_len} rendez-vous trouvé(s) à la {place['name']} !")
+                    f"{success()} {rdv_len} créneaux trouvé(s) à la {place['name']} !")
                 print(f"{info()} Envoi de la notification...")
                 try:
                     rdv_place_url = place['website']
@@ -135,7 +135,7 @@ def main():
                         f"{warning()} Impossible de récupérer l'icône de la {place['name']}.")
                     rdv_place_icon = "https://guichetcartegrise.com/img/ants.jpg"
                 embed = discord.Embed(
-                    title=f":date: {rdv_len} rendez-vous trouvé(s) à la {place['name']}.",
+                    title=f"{rdv_len} créneaux trouvé(s) à la {place['name']}.",
                     description=f":round_pushpin: Distance : {place['distance_km']} kms",
                     color=discord.Color.red())
                 embed.set_author(
@@ -150,14 +150,14 @@ def main():
                     rdv_time = rdv_date.strftime('%H:%M')
                     rdv_link = rdv['callback_url']
                     embed.add_field(
-                        name=f"Créneau disponible le {rdv_day} à {rdv_time}",
-                        value=rdv_link,
+                        name=f":date: Le {rdv_day} à {rdv_time}",
+                        value=f":globe_with_meridians: [Prendre rendez-vous]({rdv_link})",
                         inline=False
                     )
             asyncio.run(notifier.send_notification(embed))
         else:
             print(
-                f"{info()} Pas de rendez-vous trouvé. Lancement de la recherche dans 5 minutes...")
+                f"{info()} Pas de créneaux trouvé. Lancement de la recherche dans 5 minutes...")
         time.sleep(300)
 
 
