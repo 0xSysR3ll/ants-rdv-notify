@@ -3,3 +3,4 @@ discord.py
 geopy
 requests-random-user-agent
 pyyaml
+termcolor
