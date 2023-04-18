@@ -157,7 +157,7 @@ def main():
             asyncio.run(notifier.send_notification(embed))
         else:
             print(
-                f"{info} Pas de rendez-vous trouvé. Lancement de la recherche dans 5 minutes...")
+                f"{info()} Pas de rendez-vous trouvé. Lancement de la recherche dans 5 minutes...")
         time.sleep(300)
 
 
