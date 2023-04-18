@@ -80,7 +80,7 @@ To run this script, you will need :
     pip install -r requirements.txt
     ```
 
-3. Copy the `config.json` to the app folder and edit the values to match your preferences.
+3. Copy the `config.yml` to the app folder and edit the values to match your preferences.
 
 4. Run the script:
     ```bash
@@ -94,7 +94,7 @@ To run this script, you will need :
     git clone https://github.com/0xSysR3ll/ants-rdv-notify
     ```
 
-2. Edit the values in `config.json` to match your preferences.
+2. Edit the values in `config.yml` to match your preferences.
 
 3. Pull the official image on Docker Hub
     ```bash
