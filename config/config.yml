@@ -1,0 +1,9 @@
+general:
+    - city: # Paris 75000
+    - reason: # CNI, PASSPORT, CNI-PASSPORT (for both)
+    - documents_number: # From 1 to 5
+    - radius_km: # 20, 30, 60 (kms)
+
+discord:
+    # Refer to this link : https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+    webhook_url: 

@@ -3,11 +3,11 @@
 
 import time
 from datetime import datetime, timedelta
-import json
+import yaml
 import discord
 import asyncio
 import aiohttp
-
+from colors import *
 import requests as req
 from geopy.geocoders import Nominatim
 import requests_random_user_agent
@@ -88,12 +88,17 @@ def search_rendez_vous(radius_km: int, longitude: float, latitude: float,
 
 def main():
     # Parse config file
-    config = json.load(open('config.json'))
-    city = config['city']
-    reason = config['reason']
-    documents_number = config['documents_number']
-    radius_km = config['radius_km']
-    webhook_url = config['webhook_url']
+    try:
+        config = yaml.safe_load(open('config.yml'))
+    except Exception as e:
+        print(f"{error()} Error while parsing config file: {e}")
+        exit(1)
+    general = config['general']
+    city = general['city']
+    reason = general['reason']
+    documents_number = general['documents_number']
+    radius_km = general['radius_km']
+    webhook_url = config['discord']['webhook_url']
 
     notifier = DiscordWebhook(webhook_url)  # Create a notifier object
 
@@ -112,18 +117,22 @@ def main():
         if found:
             for place in places:
                 rdv_len = len(place['available_slots'])
-                print(f"[+] {rdv_len} rendez-vous trouvé(s) à la {place['name']} ! Envoi de la notification...")
+                print(
+                    f"{success()} {rdv_len} rendez-vous trouvé(s) à la {place['name']} !")
+                print(f"{info()} Envoi de la notification...")
                 try:
                     rdv_place_url = place['website']
                     req.get(rdv_place_url)
                 except Exception as e:
-                    print(e)
+                    print(
+                        f"{warning()} Impossible de récupérer le lien du site de la {place['name']}.")
                     rdv_place_url = "https://rendezvouspasseport.ants.gouv.fr"
                 try:
                     rdv_place_icon = place['city_logo']
                     req.get(rdv_place_icon)
                 except Exception as e:
-                    print(e)
+                    print(
+                        f"{warning()} Impossible de récupérer l'icône de la {place['name']}.")
                     rdv_place_icon = "https://guichetcartegrise.com/img/ants.jpg"
                 embed = discord.Embed(
                     title=f":date: {rdv_len} rendez-vous trouvé(s) à la {place['name']}.",
@@ -147,7 +156,8 @@ def main():
                     )
             asyncio.run(notifier.send_notification(embed))
         else:
-            print("[x] Pas de rendez-vous trouvé. Lancement de la recherche dans 5 minutes...")
+            print(
+                f"{info} Pas de rendez-vous trouvé. Lancement de la recherche dans 5 minutes...")
         time.sleep(300)
 
 
