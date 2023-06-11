@@ -4,6 +4,15 @@ general:
     documents_number: # From 1 to 5
     radius_km: # 20, 30, 60 (kms)
 
+notifiers:
+    #- telegram
+    #- discord
+
 discord:
     # Refer to this link : https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
-    webhook_url: 
+    webhook_url:
+
+telegram:
+    api_id:
+    api_hash:
+    channel_id:

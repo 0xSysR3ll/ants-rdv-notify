@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+config/config.yml
+docker-compose.yml
+*.session*
+.vscode/
+app/config/config.yml

@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     configs:
       - source: ants-rdv-notify-config
-        target: /app/config.yml
+        target: /app/config/config.yml
     restart: always
 
 configs:
