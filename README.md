@@ -80,7 +80,7 @@ To run this script, you will need :
     pip install -r requirements.txt
     ```
 
-3. Copy the `config.yml` to the app folder and edit the values to match your preferences.
+3. Copy the `config/config-sample.yml` to `app/config/config.yml` and edit the values to match your preferences.
 
 4. Run the script:
     ```bash
@@ -94,7 +94,7 @@ To run this script, you will need :
     git clone https://github.com/0xSysR3ll/ants-rdv-notify
     ```
 
-2. Edit the values in `config.yml` to match your preferences.
+2. Copy the `config/config-sample.yml` to `config/config.yml` and edit the values to match your preferences.
 
 3. Pull the official image on Docker Hub
     ```bash
@@ -110,13 +110,52 @@ To run this script, you will need :
 
 #### Configuration
 
-The `config.json` file contains the following settings:
+Configuration File (config.yml) Documentation
 
-- `city`: The name of the city where you want to search for rendez-vous slots.
-- `reason`: The type of document you want. Options are : CNI, PASSPORT or CNI-PASSPORT (for both).
-- `documents_number`: The number of people wishing for a rendez-vous.
-- `radius_km`: The radius in kilometers around the city where you want to search for rendez-vous slots.
-- `webhook_url`: The URL of the Discord webhook to which notifications will be sent.
+##### General Settings
+
+The `config.yml` file is used to configure various settings for an application. It contains the following settings:
+General Settings
+
+- `city`: Specifies the city for which the application will retrieve information. The format is as follows: city: # City Name PostalCode. For example, city: # Paris 75000.
+
+- `reason`: Specifies the reason for document retrieval. It can be one of the following options: CNI (National Identity Card), PASSPORT, or CNI-PASSPORT (for both). For example, reason: # CNI, PASSPORT, CNI-PASSPORT (for both).
+
+- `documents_number`: Specifies the number of documents to be retrieved. It should be a value between 1 and 5. For example, documents_number: # From 1 to 5.
+
+- `radius_km`: Specifies the radius in kilometers within which the application will search for document retrieval. It can be one of the following options: 20, 30, or 60. For example, `radius_km`: # 20, 30, 60 (kms).
+
+##### Notifiers Settings
+
+The notifiers section allows you to configure different notification systems. Currently, the following notifiers are supported:
+Discord Notifier
+
+To enable Discord notifications, uncomment the following lines:
+```yml
+discord:
+  webhook_url:
+```
+
+- `webhook_url`: Specifies the Discord webhook URL to which the application will send notifications. You can obtain the webhook URL by following the instructions provided in the Discord Webhooks documentation.
+
+##### Telegram Notifier
+
+To enable Telegram notifications, uncomment the following lines:
+
+```yml
+telegram:
+    api_id:
+    api_hash:
+    channel_id:
+```
+
+- `api_id`: Specifies the API ID for your Telegram application. You can obtain this value by creating a new application on the Telegram API development platform and retrieving the API ID.
+
+- `api_hash`: Specifies the API hash for your Telegram application. You can obtain this value from the same page where you retrieved the API ID.
+
+- `channel_id`: Specifies the ID of the Telegram channel where the notifications will be sent. You need to create a Telegram channel and obtain the channel ID.
+
+Note: Make sure to uncomment the necessary lines and provide the required values for the chosen notification systems.
 
 <!-- Contributing -->
 ## :wave: Contributing

@@ -37,7 +37,6 @@ def search_rendez_vous(radius_km: int, longitude: float, latitude: float,
     else:
         return False, None
 
-
 def main():
     # Load the configuration
     config = Config('config/config.yml')

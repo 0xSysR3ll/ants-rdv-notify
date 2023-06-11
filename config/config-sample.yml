@@ -13,6 +13,6 @@ discord:
     webhook_url:
 
 telegram:
-    api_id:
+    api_id: 
     api_hash:
-    channel_id:
+    channel_id: #-100XXXXXXXXX
