@@ -12,7 +12,7 @@ LABEL org.label-schema.schema-version="1.0"
 LABEL copyright="Copyright © 2023 0xsysr3ll"
 
 WORKDIR /app
-COPY . .
+COPY app .
 
 RUN apk update && \
     apk add --no-cache --virtual .build-deps gcc musl-dev && \
