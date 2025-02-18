@@ -11,8 +11,8 @@
   
 <!-- Badges -->
 <p>
-  <a href="https://www.python.org/downloads/release/python-3108/">
-    <img src="https://img.shields.io/badge/python-3.10.8-blue.svg">
+  <a href="https://www.python.org/downloads/release/python-3132/">
+    <img src="https://img.shields.io/badge/python-3.13.2-blue.svg">
   </a>
   <a href="https://github.com/0xsysr3ll/ants-rdv-notify/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/0xsysr3ll/ants-rdv-notify" alt="contributors" />
@@ -98,7 +98,7 @@ To run this script, you will need :
 
 3. Pull the official image on Docker Hub
     ```bash
-    docker pull 0xsysr3ll/ants-rdv-notify:latest
+    docker pull ghcr.io/0xsysr3ll/ants-rdv-notify:latest
     ```
 
 4. Copy `docker-compose.sample.yml` to `docker-compose.yml` and adapt it to your needs.
