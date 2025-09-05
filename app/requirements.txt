@@ -1,5 +1,5 @@
 requests==2.32.3
-discord.py==2.5.0
+discord.py==2.5.2
 geopy==2.4.1
 requests_random_user_agent==2023.10.25
 PyYAML==6.0.2
