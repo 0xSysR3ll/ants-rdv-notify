@@ -4,4 +4,4 @@ geopy==2.4.1
 requests_random_user_agent==2023.10.25
 PyYAML==6.0.3
 Telethon==1.42.0
-termcolor==3.2.0
+termcolor==3.3.0
