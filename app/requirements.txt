@@ -1,6 +1,6 @@
 requests==2.34.2
 discord.py==2.7.1
-geopy==2.4.1
+geopy==2.5.0
 requests_random_user_agent==2023.10.25
 PyYAML==6.0.3
 Telethon==1.43.2
